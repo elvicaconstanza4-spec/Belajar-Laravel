@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Fakultas;
+use Illuminate\Foundation\Http\Attributes\RedirectTo;
 use Illuminate\Http\Request;
 
 class FakultasController extends Controller
@@ -12,7 +14,7 @@ class FakultasController extends Controller
      */
     public function index()
     {
-        $fakultas = Fakultas::all();
+        $fakultas = Fakultas::orderBy('created_at', 'desc')->get();
         return view('fakultas.list-fakultas', compact('fakultas'));
     }
 
@@ -29,38 +31,52 @@ class FakultasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Fakultas::create([
+            'name' => $request->name_fakultas,
+            'dekan' => $request->name_dekan
+        ]);
+
+        return redirect('fakultas');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Fakultas $fakultas)
+    public function show(Fakultas $fakulta)
     {
-        //
+        return view('fakultas.detail-fakultas', compact('fakulta'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Fakultas $fakultas)
+    public function edit(Fakultas $fakulta)
     {
-        return view('fakultas.edit-fakultas');
+        return view('fakultas.edit-fakultas', [
+            'fakultas' => $fakulta
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Fakultas $fakultas)
+    public function update(Request $request, Fakultas $fakulta)
     {
-        //
+        $fakulta->update([
+            'name' => $request->name_fakultas,
+            'dekan' => $request->name_dekan
+        ]);
+
+        return redirect('/fakultas');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Fakultas $fakultas)
+    public function destroy(Fakultas $fakulta)
     {
-        //
+        $fakulta->delete();
+
+        return Redirect()->back();
     }
 }
