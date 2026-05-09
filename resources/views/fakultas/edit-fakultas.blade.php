@@ -1,6 +1,17 @@
 <x-layout>
     <h1>Edit Fakultas</h1>
 
+    @if ($errors->any())
+        <div class="alert alert-danger" >
+
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    
     <form action="/fakultas/{{ $fakultas->id }}" method="post">
         @csrf
         @method('PUT')
