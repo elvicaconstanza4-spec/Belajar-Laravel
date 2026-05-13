@@ -46,38 +46,30 @@
             >
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a
-                            class="nav-link {{ request()->is('/') ? "active bg-primary text-white" : "" }}"
-                            href="/"
-                        >
+                        <a class="nav-link {{ request()->is('/') ? "active bg-primary text-white" : "" }}" 
+                            href="/">
                             Home
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a
-                            class="nav-link {{ request()->routeIs('fakultas.index') ? "active bg-primary text-white" : "" }} "
-                            href="/fakultas"
-                        >
+                        <a class="nav-link {{ request()->routeIs('prodi.index') ? "active bg-primary text-white" : "" }} "
+                            href="/fakultas">
                             Fakultas
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            href="/about"
-                        >
-                            About
+                        <a class="nav-link" {{ request()->routeIs('prodi.index') ? "active bg-primary text-white" : "" }} "
+                            href="/prodi/create">
+                            Tambah Prodi
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            href="/contact"
-                        >
-                            Contact
+                        <a class="nav-link" {{ request()->routeIs('fakultas.index') ? "active bg-primary text-white" : "" }} "
+                            href="/fakultas/create">
+                            Tambah Fakultas
                         </a>
                     </li>
                 </ul>
