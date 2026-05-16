@@ -76,9 +76,15 @@
             </div>
         </div>
     </nav>
+    
 
     <!-- Main Content -->
     <main class="py-4">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
         {{ $slot }}
     </main>
 
