@@ -72,6 +72,10 @@
                             Tambah Fakultas
                         </a>
                     </li>
+                    
+                    <form action="/logout" method="POST">
+                        <button type="submit" class="btn btn-danger">Logout</button>
+                    </form>
                 </ul>
             </div>
         </div>
