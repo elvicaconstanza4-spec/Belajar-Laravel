@@ -8,6 +8,11 @@ class Fakultas extends Model
 {
     protected $fillable = [
         'name',
-        'dekan'
+        'dekan',
     ];
+
+    public function prodi(){
+        return $this->hasMany(Prodi::class);
+    }
+
 }

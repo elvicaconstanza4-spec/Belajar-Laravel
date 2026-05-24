@@ -7,7 +7,6 @@ use App\Http\Requests\StoreProdiRequest;
 use App\Http\Requests\UpdateProdiRequest;
 use App\Models\Fakultas;
 use App\Models\Prodi;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
 class ProdiController extends Controller
@@ -18,7 +17,7 @@ class ProdiController extends Controller
     public function index()
     {
 
-        $prodi = Prodi::width(['fakultas'])->get();
+        $prodi = Prodi::all();
         return view('prodi.list-prodi', compact('prodi'));
 
     }
@@ -64,7 +63,8 @@ class ProdiController extends Controller
      */
     public function edit(Prodi $prodi)
     {
-        //
+        $fakultas = Fakultas::all();
+        return view('prodi.edit-prodi',compact('prodi','fakultas'));
     }
 
     /**
@@ -72,7 +72,20 @@ class ProdiController extends Controller
      */
     public function update(UpdateProdiRequest $request, Prodi $prodi)
     {
-        //
+        $data = $request->validated();
+        if ($request->hasFile('photo_kaprodi')) {
+        
+        if ($prodi->photo_kaprodi) {
+            Storage::disk('public')->delete($prodi->photo_kaprodi);
+        }
+            // Upload foto baru
+            $path = Storage::disk('public')->putFile('profile_kaprodi', $request->file('photo_kaprodi'));
+            $data['photo_kaprodi'] = $path;
+        } else {
+            unset($data['photo_kaprodi']);
+        }
+        $prodi->update($data);
+        return redirect('/prodi')->with('Success','Prodi Berhasil Diupdate!');
     }
 
     /**
@@ -80,6 +93,10 @@ class ProdiController extends Controller
      */
     public function destroy(Prodi $prodi)
     {
-        //
+        if($prodi->photo_kaprodi){
+            Storage::disk('public')->delete($prodi->photo_kaprodi);
+        }
+        $prodi->delete(...);
+        return redirect('/prodi')->with('Success','Prodi Berhasil Dihapus!');
     }
 }

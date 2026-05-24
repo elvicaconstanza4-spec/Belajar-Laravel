@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Fakultas;
-use Illuminate\Foundation\Http\Attributes\RedirectTo;
 use Illuminate\Http\Request;
 
 class FakultasController extends Controller
