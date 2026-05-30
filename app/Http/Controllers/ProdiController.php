@@ -16,8 +16,8 @@ class ProdiController extends Controller
      */
     public function index()
     {
-
-        $prodi = Prodi::all();
+        $prodi = Prodi::with(['fakultas',
+        ])->orderBy('created_at', 'desc');
         return view('prodi.list-prodi', compact('prodi'));
 
     }
